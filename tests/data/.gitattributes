@@ -1,0 +1,3 @@
+*.pcap -text
+*.pcapng -text
+*.tsv -text
