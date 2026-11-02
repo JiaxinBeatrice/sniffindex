@@ -75,11 +75,23 @@ TK 能解開該段流量，不要寫進輸出檔、報告或記錄裡。
 
 ### 3. 開到 flogg
 
+先看使用者指定的 window 在不在：
+
 ```bat
-start "" flogg --window "問題A" "D:\logs\big.tsv"
+flogg -L
 ```
 
-名字不存在時會開新的 window。用 `start ""` 是因為 flogg 開新 window 時 process 不會結束。
+列出 `#2  問題A` 這類編號和名字；flogg 沒在跑時什麼都不印。window 已存在就加成它的分頁，
+不存在就開一個新 window 並命名：
+
+```bat
+flogg -w "問題A" "D:\logs\big.tsv"
+start "" flogg --window-name "問題A" "D:\logs\big.tsv"
+```
+
+- `-w` 找不到 window 時會印錯誤、什麼都不做，不會自己開新的。同名的 window 有好幾個時改用編號，如 `-w 2`。
+- 開新 window 要用 `start ""`：沒有 flogg 在跑時，這次啟動的 flogg 會一直開著，指令不會結束。
+- 開檔時可順便跳到某一行：`--line 1200`。
 
 ### 4. 搜尋
 
